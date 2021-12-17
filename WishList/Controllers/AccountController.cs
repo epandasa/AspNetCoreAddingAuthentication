@@ -55,7 +55,7 @@ namespace WishList.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
-            _signInManager.SignOutAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
 
