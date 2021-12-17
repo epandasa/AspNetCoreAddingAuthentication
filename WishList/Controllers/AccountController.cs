@@ -22,22 +22,23 @@ namespace WishList.Controllers
             _signInManager = signInManager;
         }
 
-        [AllowAnonymous]
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View(new RegisterViewModel());
         }
 
-        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Register([FromForm] RegisterViewModel model)
+        [AllowAnonymous]
+        public IActionResult Register([FromForm] RegisterViewModel model)
         {
 
             if (!ModelState.IsValid)
                 return View(model);
 
-            var createResult = await _userManager.CreateAsync(new ApplicationUser() { UserName = model.Email, Email = model.Email }, model.Password);
+            var createResult = _userManager.CreateAsync(new ApplicationUser() { UserName = model.Email, Email = model.Email }, model.Password)
+                .ConfigureAwait(false).GetAwaiter().GetResult();
             if (!createResult.Succeeded)
             {
                 foreach (var error in createResult.Errors)
