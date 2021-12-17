@@ -27,6 +27,8 @@ namespace WishList.Controllers
                 var model = _context.Items.Where(x => x.User.Id == user.Id).ToList();
                 return View("Index", model);
             }
+
+            return View();
             
         }
 
